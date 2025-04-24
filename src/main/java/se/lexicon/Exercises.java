@@ -112,6 +112,14 @@ public class Exercises {
     public static void exercise7(String message) {
         System.out.println(message);
         //Write your code here
+        Predicate<Person> findByAge9 = (person) -> person.getBirthDate().isAfter(LocalDate.of(2015, 12, 31));
+        Function<Person, String> test = (person) -> {
+            int years = LocalDate.now().getYear() - person.getBirthDate().getYear();
+
+            return person.getFirstName() + " " + person.getLastName() + " " + years + " years";
+        };
+
+        System.out.println(storage.findManyAndMapEachToString(findByAge9, test));
 
         System.out.println("----------------------");
     }
