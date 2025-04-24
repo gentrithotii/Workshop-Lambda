@@ -12,6 +12,7 @@ import java.time.Period;
 import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
+import java.util.function.Consumer;
 import java.util.function.Function;
 import java.util.function.Predicate;
 
@@ -129,7 +130,10 @@ public class Exercises {
      */
     public static void exercise8(String message) {
         System.out.println(message);
-        //Write your code here
+        Predicate<Person> withNameUlf = (p) -> p.getFirstName().equals("Ulf");
+        Consumer<Person> printWithName = (p) -> System.out.println(p);
+
+        storage.findAndDo(withNameUlf, printWithName);
 
         System.out.println("----------------------");
     }
