@@ -1,12 +1,15 @@
 package se.lexicon;
 
 import se.lexicon.data.DataStorage;
+import se.lexicon.data.DataStorageImpl;
 import se.lexicon.model.Gender;
 import se.lexicon.model.Person;
 
 import java.time.LocalDate;
 import java.time.Period;
 import java.util.Comparator;
+import java.util.List;
+import java.util.function.Predicate;
 
 public class Exercises {
 
@@ -17,8 +20,11 @@ public class Exercises {
     */
     public static void exercise1(String message) {
         System.out.println(message);
-        //Write your code here
+        Predicate<Person> findErik = (p) -> p.getFirstName().equalsIgnoreCase("Erik");
 
+        List<Person> listWithSpecificName = DataStorage.INSTANCE.findMany(findErik);
+
+        listWithSpecificName.forEach(System.out::println);
         System.out.println("----------------------");
     }
 
@@ -26,8 +32,10 @@ public class Exercises {
         2.	TODO: Find all females in the collection using findMany().
      */
     public static void exercise2(String message) {
-        //Write your code here
-
+        System.out.println(message);
+        Predicate<Person> findAllFemales = f -> f.getGender().equals(Gender.FEMALE);
+        List<Person> femaleFilterdList = DataStorage.INSTANCE.findMany(findAllFemales);
+        femaleFilterdList.forEach(System.out::println);
         System.out.println("----------------------");
     }
 
@@ -36,8 +44,9 @@ public class Exercises {
      */
     public static void exercise3(String message) {
         System.out.println(message);
-        //Write your code here
-
+        Predicate<Person> findByBirthdate = b -> b.getBirthDate().isAfter(LocalDate.of(2000, 1, 1).minusDays(1));
+        List<Person> listByBirthdate = DataStorage.INSTANCE.findMany(findByBirthdate);
+        listByBirthdate.forEach(System.out::println);
         System.out.println("----------------------");
     }
 
