@@ -1,5 +1,6 @@
 package se.lexicon;
 
+import org.w3c.dom.ls.LSOutput;
 import se.lexicon.data.DataStorage;
 import se.lexicon.data.DataStorageImpl;
 import se.lexicon.model.Gender;
@@ -8,6 +9,7 @@ import se.lexicon.model.Person;
 import java.time.LocalDate;
 import java.time.Period;
 import java.util.Comparator;
+import java.util.HashMap;
 import java.util.List;
 import java.util.function.Predicate;
 
@@ -22,7 +24,7 @@ public class Exercises {
         System.out.println(message);
         Predicate<Person> findErik = (p) -> p.getFirstName().equalsIgnoreCase("Erik");
 
-        List<Person> listWithSpecificName = DataStorage.INSTANCE.findMany(findErik);
+        List<Person> listWithSpecificName = storage.findMany(findErik);
 
         listWithSpecificName.forEach(System.out::println);
         System.out.println("----------------------");
@@ -34,7 +36,7 @@ public class Exercises {
     public static void exercise2(String message) {
         System.out.println(message);
         Predicate<Person> findAllFemales = f -> f.getGender().equals(Gender.FEMALE);
-        List<Person> femaleFilterdList = DataStorage.INSTANCE.findMany(findAllFemales);
+        List<Person> femaleFilterdList = storage.findMany(findAllFemales);
         femaleFilterdList.forEach(System.out::println);
         System.out.println("----------------------");
     }
@@ -45,7 +47,7 @@ public class Exercises {
     public static void exercise3(String message) {
         System.out.println(message);
         Predicate<Person> findByBirthdate = b -> b.getBirthDate().isAfter(LocalDate.of(2000, 1, 1).minusDays(1));
-        List<Person> listByBirthdate = DataStorage.INSTANCE.findMany(findByBirthdate);
+        List<Person> listByBirthdate = storage.findMany(findByBirthdate);
         listByBirthdate.forEach(System.out::println);
         System.out.println("----------------------");
     }
@@ -55,6 +57,10 @@ public class Exercises {
      */
     public static void exercise4(String message) {
         System.out.println(message);
+        Predicate <Person> findById = i -> i.getId() == 123;
+        Person personFound = storage.findOne(findById);
+        System.out.println(personFound);
+
         //Write your code here
 
         System.out.println("----------------------");
