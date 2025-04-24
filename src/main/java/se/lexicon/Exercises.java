@@ -128,9 +128,6 @@ public class Exercises {
         System.out.println("----------------------");
     }
 
-    /*
-        10.	TODO: Using findAndDo() print out the firstName and lastName of everyone whose firstName is a palindrome.
-     */
     public static void exercise10(String message) {
         System.out.println(message);
 
