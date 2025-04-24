@@ -142,8 +142,10 @@ public class Exercises {
         9.	TODO: Using findAndDo() print out everyone who have their lastName contain their firstName.
      */
     public static void exercise9(String message) {
-        System.out.println(message);
-        //Write your code here
+        Predicate<Person> containsFirstNameInLastName = (p) -> p.getLastName().contains(p.getFirstName());
+        Consumer<Person> printOut = (p) -> System.out.println(p);
+
+        storage.findAndDo(containsFirstNameInLastName, printOut);
 
         System.out.println("----------------------");
     }
