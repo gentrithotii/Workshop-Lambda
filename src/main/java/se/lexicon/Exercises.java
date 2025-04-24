@@ -1,5 +1,6 @@
 package se.lexicon;
 
+
 import org.w3c.dom.ls.LSOutput;
 import se.lexicon.data.DataStorage;
 import se.lexicon.data.DataStorageImpl;
@@ -11,6 +12,7 @@ import java.time.Period;
 import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
+import java.util.function.Function;
 import java.util.function.Predicate;
 
 public class Exercises {
@@ -57,7 +59,7 @@ public class Exercises {
      */
     public static void exercise4(String message) {
         System.out.println(message);
-        Predicate <Person> findById = i -> i.getId() == 123;
+        Predicate<Person> findById = i -> i.getId() == 123;
         Person personFound = storage.findOne(findById);
         System.out.println(personFound);
 
@@ -72,8 +74,19 @@ public class Exercises {
      */
     public static void exercise5(String message) {
         System.out.println(message);
-        //Write your code here
+        Predicate<Person> findWithSpecificId = (p) -> p.getId() == 456;
+        Function<Person, String> findAndChangeData = (p) -> {
+            p.setFirstName("Nisse");
+            p.setLastName("Nilsson");
+            p.setGender(Gender.MALE);
+            p.setBirthDate(LocalDate.of(1999, 9, 9));
 
+            return "Name: " + p.getFirstName() + " " + p.getLastName() + " born " + p.getBirthDate();
+        };
+
+//        Function<Person, String> testStuff = (p) -> p.toString();
+
+        System.out.println(storage.findOneAndMapToString(findWithSpecificId, findAndChangeData));
         System.out.println("----------------------");
     }
 
@@ -82,7 +95,12 @@ public class Exercises {
      */
     public static void exercise6(String message) {
         System.out.println(message);
-        //Write your code here
+
+        Predicate<Person> findByE = (p) -> p.getFirstName().startsWith("E") && p.getGender().equals(Gender.MALE);
+        Function<Person, String> test = (p) -> p.getFirstName();
+
+        System.out.println(storage.findManyAndMapEachToString(findByE, test));
+
 
         System.out.println("----------------------");
     }
