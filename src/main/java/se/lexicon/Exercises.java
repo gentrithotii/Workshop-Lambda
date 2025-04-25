@@ -172,13 +172,14 @@ public class Exercises {
         System.out.println(message);
         Predicate<Person> byYear1950 = (p) -> p.getBirthDate().isBefore(LocalDate.of(1950, 1, 1));
         Comparator<Person> latestToEarliest = Comparator.comparing((Person::getBirthDate)).reversed();
+        Comparator<Person> latestToEarliestArrowFunction = Comparator.comparing((Person p) -> p.getBirthDate()).reversed();
 
         List<Person> reversedList = storage.findAndSort(byYear1950, latestToEarliest);
 
         reversedList.forEach(System.out::println);
         System.out.println("----------------------");
     }
-    
+
     public static void exercise13(String message) {
         System.out.println(message);
         Comparator<Person> bySomeStuff = Comparator.comparing(Person::getLastName).thenComparing(Person::getFirstName).thenComparing(Person::getBirthDate);
