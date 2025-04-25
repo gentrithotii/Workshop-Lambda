@@ -7,11 +7,13 @@ import se.lexicon.data.DataStorageImpl;
 import se.lexicon.model.Gender;
 import se.lexicon.model.Person;
 
+import java.beans.PersistenceDelegate;
 import java.time.LocalDate;
 import java.time.Period;
 import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
+import java.util.function.Consumer;
 import java.util.function.Function;
 import java.util.function.Predicate;
 
@@ -124,43 +126,44 @@ public class Exercises {
         System.out.println("----------------------");
     }
 
-    /*
-        8.	TODO: Using findAndDo() print out all people with firstName “Ulf”.
-     */
     public static void exercise8(String message) {
         System.out.println(message);
-        //Write your code here
+        Predicate<Person> testByName = (person) -> person.getFirstName().equalsIgnoreCase("Ulf");
+        Consumer<Person> print = System.out::println;
+        storage.findAndDo(testByName, print);
 
         System.out.println("----------------------");
     }
 
-    /*
-        9.	TODO: Using findAndDo() print out everyone who have their lastName contain their firstName.
-     */
     public static void exercise9(String message) {
         System.out.println(message);
-        //Write your code here
+        Predicate<Person> testLastNameContainFirstName = (person) -> person.getLastName().toLowerCase().contains(person.getFirstName().toLowerCase());
+        Consumer<Person> print = System.out::println;
+        storage.findAndDo(testLastNameContainFirstName, print);
 
         System.out.println("----------------------");
     }
 
-    /*
-        10.	TODO: Using findAndDo() print out the firstName and lastName of everyone whose firstName is a palindrome.
-     */
     public static void exercise10(String message) {
         System.out.println(message);
-        //Write your code here
+        Predicate<Person> reverseNamePalindrome = (person) -> {
+            StringBuilder sb = new StringBuilder(person.getFirstName());
+            return person.getFirstName().equalsIgnoreCase(sb.reverse().toString());
+
+        };
+        Consumer<Person> print = (person) -> System.out.println(person.getFirstName() + " " + person.getLastName());
+        storage.findAndDo(reverseNamePalindrome, print);
 
         System.out.println("----------------------");
+
     }
 
-    /*
-        11.	TODO: Using findAndSort() find everyone whose firstName starts with A sorted by birthdate.
-     */
     public static void exercise11(String message) {
         System.out.println(message);
-        //Write your code here
+        Predicate<Person> byLetterA = (p) -> p.getFirstName().startsWith("A");
+        Comparator<Person> byBirthDateAndLetterA = Comparator.comparing((Person::getBirthDate));
 
+        System.out.println(storage.findAndSort(byLetterA, byBirthDateAndLetterA));
         System.out.println("----------------------");
     }
 

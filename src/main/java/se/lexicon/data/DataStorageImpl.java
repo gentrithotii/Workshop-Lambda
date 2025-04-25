@@ -4,6 +4,7 @@ import se.lexicon.model.Person;
 import se.lexicon.util.PersonGenerator;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Comparator;
 import java.util.List;
 import java.util.function.Consumer;
@@ -83,18 +84,32 @@ public class DataStorageImpl implements DataStorage {
 
     @Override
     public void findAndDo(Predicate<Person> filter, Consumer<Person> consumer) {
-        // TODO: needs completion
+        for (Person person : personList) {
+            if (filter.test(person)) {
+                consumer.accept(person);
+            }
+        }
+
     }
 
     @Override
     public List<Person> findAndSort(Comparator<Person> comparator) {
-        // TODO: needs completion
-        return null;
+        List<Person> sortedList = new ArrayList<>(personList);
+        sortedList.sort(comparator);
+
+        return sortedList;
     }
 
     @Override
     public List<Person> findAndSort(Predicate<Person> filter, Comparator<Person> comparator) {
-        // TODO: needs completion
-        return null;
+        List<Person> sortList = new ArrayList<>();
+        for (Person person : personList) {
+            if (filter.test(person)) {
+                sortList.add(person);
+            }
+        }
+        sortList.sort(comparator);
+
+        return sortList;
     }
 }
