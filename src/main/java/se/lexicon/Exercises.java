@@ -22,9 +22,6 @@ public class Exercises {
 
     private final static DataStorage storage = DataStorage.INSTANCE;
 
-    /*
-       1.	TODO: Find everyone that has firstName: “Erik” using findMany().
-    */
     public static void exercise1(String message) {
         System.out.println(message);
         Predicate<Person> findErik = (p) -> p.getFirstName().equalsIgnoreCase("Erik");
@@ -35,9 +32,6 @@ public class Exercises {
         System.out.println("----------------------");
     }
 
-    /*
-        2.	TODO: Find all females in the collection using findMany().
-     */
     public static void exercise2(String message) {
         System.out.println(message);
         Predicate<Person> findAllFemales = f -> f.getGender().equals(Gender.FEMALE);
@@ -46,9 +40,7 @@ public class Exercises {
         System.out.println("----------------------");
     }
 
-    /*
-        3.	TODO: Find all who are born after (and including) 2000-01-01 using findMany().
-     */
+
     public static void exercise3(String message) {
         System.out.println(message);
         Predicate<Person> findByBirthdate = b -> b.getBirthDate().isAfter(LocalDate.of(2000, 1, 1).minusDays(1));
@@ -57,9 +49,6 @@ public class Exercises {
         System.out.println("----------------------");
     }
 
-    /*
-        4.	TODO: Find the Person that has an id of 123 using findOne().
-     */
     public static void exercise4(String message) {
         System.out.println(message);
         Predicate<Person> findById = i -> i.getId() == 123;
@@ -71,10 +60,6 @@ public class Exercises {
         System.out.println("----------------------");
     }
 
-    /*
-        5.	TODO: Find the Person that has an id of 456 and convert to String with following content:
-            “Name: Nisse Nilsson born 1999-09-09”. Use findOneAndMapToString().
-     */
     public static void exercise5(String message) {
         System.out.println(message);
         Predicate<Person> findWithSpecificId = (p) -> p.getId() == 456;
@@ -93,9 +78,6 @@ public class Exercises {
         System.out.println("----------------------");
     }
 
-    /*
-        6.	TODO: Find all male people whose names start with “E” and convert each to a String using findManyAndMapEachToString().
-     */
     public static void exercise6(String message) {
         System.out.println(message);
 
@@ -108,10 +90,6 @@ public class Exercises {
         System.out.println("----------------------");
     }
 
-    /*
-        7.	TODO: Find all people who are below age of 10 and convert them to a String like this:
-            “Olle Svensson 9 years”. Use findManyAndMapEachToString() method.
-     */
     public static void exercise7(String message) {
         System.out.println(message);
         //Write your code here
