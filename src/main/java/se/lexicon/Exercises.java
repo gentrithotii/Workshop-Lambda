@@ -13,6 +13,7 @@ import java.time.Period;
 import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Objects;
 import java.util.function.Consumer;
 import java.util.function.Function;
 import java.util.function.Predicate;
@@ -167,23 +168,24 @@ public class Exercises {
         System.out.println("----------------------");
     }
 
-    /*
-        12.	TODO: Using findAndSort() find everyone born before 1950 sorted reversed by lastest to earliest.
-     */
     public static void exercise12(String message) {
         System.out.println(message);
-        //Write your code here
+        Predicate<Person> byYear1950 = (p) -> p.getBirthDate().isBefore(LocalDate.of(1950, 1, 1));
+        Comparator<Person> latestToEarliest = Comparator.comparing((Person::getBirthDate)).reversed();
 
+        List<Person> reversedList = storage.findAndSort(byYear1950, latestToEarliest);
+
+        reversedList.forEach(System.out::println);
         System.out.println("----------------------");
     }
-
-    /*
-        13.	TODO: Using findAndSort() find everyone sorted in following order: lastName > firstName > birthDate.
-     */
+    
     public static void exercise13(String message) {
         System.out.println(message);
-        //Write your code here
+        Comparator<Person> bySomeStuff = Comparator.comparing(Person::getLastName).thenComparing(Person::getFirstName).thenComparing(Person::getBirthDate);
 
+        List<Person> sortedByLastFirstBirth = storage.findAndSort(bySomeStuff);
+
+        sortedByLastFirstBirth.forEach(System.out::println);
         System.out.println("----------------------");
     }
 
